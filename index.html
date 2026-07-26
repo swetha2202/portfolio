@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swetha Mayakrishnan — Python Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F1E9;
+    --bg-warm: #EFE8D9;
+    --ink: #23211C;
+    --ink-soft: #55503F;
+    --teal: #2F5D57;
+    --teal-deep: #1F433E;
+    --gold: #C99A3D;
+    --card: #FCFAF4;
+    --line: #DAD2BD;
+    --live: #3F8F63;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold); color:var(--bg);}
+  a{color:inherit; text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 32px;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(245,241,233,0.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:980px; margin:0 auto; padding:18px 32px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .brand{font-family:'Fraunces', serif; font-weight:600; font-size:19px; letter-spacing:-0.01em;}
+  .navlinks{display:flex; gap:28px; font-size:14px;}
+  .navlinks a{color:var(--ink-soft); transition:color .2s;}
+  .navlinks a:hover{color:var(--teal);}
+
+  /* HERO */
+  header{padding:170px 0 90px; position:relative;}
+  .status-line{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--ink-soft); margin-bottom:28px;
+    border:1px solid var(--line); padding:6px 14px; border-radius:100px;
+    background:var(--card);
+  }
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--live); box-shadow:0 0 0 3px rgba(63,143,99,0.18);}
+  h1{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(40px, 6vw, 66px); line-height:1.04; letter-spacing:-0.02em;
+    max-width:800px;
+  }
+  h1 em{font-style:italic; color:var(--teal); font-weight:500;}
+  .role{
+    font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--gold);
+    margin-top:22px; letter-spacing:0.02em;
+  }
+  .hero-sub{
+    max-width:600px; font-size:17px; color:var(--ink-soft); margin-top:20px;
+  }
+  .hero-cta{display:flex; gap:14px; margin-top:38px; flex-wrap:wrap;}
+  .btn{
+    padding:13px 24px; border-radius:6px; font-size:14px; font-weight:600;
+    display:inline-flex; align-items:center; gap:8px; transition:all .2s;
+  }
+  .btn-primary{background:var(--ink); color:var(--bg);}
+  .btn-primary:hover{background:var(--teal-deep);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* SECTION HEADERS */
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase;
+    letter-spacing:0.12em; color:var(--teal); margin-bottom:12px;
+  }
+  section{padding:70px 0;}
+  h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(28px,3.4vw,38px);
+    letter-spacing:-0.01em; margin-bottom:16px;
+  }
+  .section-intro{color:var(--ink-soft); max-width:620px; font-size:15.5px; margin-bottom:48px;}
+
+  /* ABOUT */
+  #about{border-top:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start;}
+  .about-grid p{color:var(--ink-soft); font-size:16px; margin-bottom:16px;}
+  .stat-block{
+    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:24px;
+  }
+  .stat-row{display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-label{color:var(--ink-soft);}
+  .stat-value{font-family:'IBM Plex Mono', monospace; font-weight:500;}
+
+  /* SKILLS */
+  #skills{border-top:1px solid var(--line); background:var(--bg-warm);}
+  .skill-cols{display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
+  .skill-col h4{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--gold); margin-bottom:14px;
+  }
+  .skill-col ul{list-style:none;}
+  .skill-col li{font-size:14.5px; padding:6px 0; color:var(--ink);}
+
+  /* PROJECTS — changelog motif */
+  #projects{border-top:1px solid var(--line);}
+  .release{
+    border:1px solid var(--line); border-radius:12px; background:var(--card);
+    margin-bottom:26px; overflow:hidden; transition:border-color .2s;
+  }
+  .release:hover{border-color:var(--teal);}
+  .release-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:26px 28px 0 28px; gap:20px; flex-wrap:wrap;
+  }
+  .release-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--teal);
+    background:rgba(47,93,87,0.08); padding:4px 10px; border-radius:5px; white-space:nowrap;
+  }
+  .release-title{font-family:'Fraunces', serif; font-weight:600; font-size:23px; letter-spacing:-0.01em;}
+  .release-date{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft);}
+  .release-body{padding:14px 28px 26px 28px;}
+  .release-desc{color:var(--ink-soft); font-size:15px; margin-bottom:16px; max-width:680px;}
+  .release-stack{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .chip{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line); padding:4px 10px; border-radius:100px;
+  }
+  .release-links{display:flex; gap:16px; font-size:13.5px;}
+  .release-links a{color:var(--teal); font-weight:500; display:inline-flex; align-items:center; gap:5px;}
+  .release-links a:hover{color:var(--teal-deep); text-decoration:underline;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:6px; font-size:12px;
+    color:var(--live); font-family:'IBM Plex Mono', monospace;
+  }
+  .status-pill .dot{background:var(--live);}
+
+  /* COMPANY SITES */
+  #sites{border-top:1px solid var(--line); background:var(--bg-warm);}
+  .site-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .site-card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px 24px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .site-name{font-weight:600; font-size:16px; display:flex; justify-content:space-between; align-items:center;}
+  .site-industry{font-size:13px; color:var(--gold); font-family:'IBM Plex Mono', monospace;}
+  .site-desc{font-size:14px; color:var(--ink-soft);}
+  .site-link{font-size:13px; color:var(--teal); margin-top:4px; font-weight:500;}
+  .site-link:hover{text-decoration:underline;}
+
+  /* EDUCATION */
+  #education{border-top:1px solid var(--line);}
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:22px 0; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:8px;
+  }
+  .edu-row:last-child{border-bottom:none;}
+  .edu-degree{font-weight:600; font-size:16.5px;}
+  .edu-school{color:var(--ink-soft); font-size:14.5px;}
+  .edu-date{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-soft); white-space:nowrap;}
+
+  /* CONTACT */
+  #contact{
+    border-top:1px solid var(--line); background:var(--teal-deep); color:#F5F1E9;
+  }
+  #contact h2{color:#F5F1E9;}
+  .contact-sub{color:#C9DAD4; max-width:520px; margin-bottom:36px; font-size:15.5px;}
+  .contact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .contact-card{
+    border:1px solid rgba(245,241,233,0.18); border-radius:10px; padding:20px;
+    transition:border-color .2s, background .2s;
+  }
+  .contact-card:hover{border-color:var(--gold); background:rgba(245,241,233,0.04);}
+  .contact-label{font-family:'IBM Plex Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); margin-bottom:8px;}
+  .contact-value{font-size:15px; font-weight:500; word-break:break-word;}
+  footer{padding:26px 0; text-align:center; font-size:13px; color:#9FB6AF; background:var(--teal-deep);}
+
+  @media(max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .skill-cols{grid-template-columns:repeat(2,1fr);}
+    .site-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:repeat(2,1fr);}
+    .navlinks{display:none;}
+    header{padding:140px 0 60px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Swetha M.</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#sites">Client Sites</a>
+      <a href="#freelance">Freelance</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap">
+  <div class="status-line"><span class="dot"></span> Currently building &amp; deploying production platforms for UAE-based businesses</div>
+  <h1>I build full-stack systems that <em>ship</em> — and stay running.</h1>
+  <div class="role">$ whoami — Python Full Stack Developer</div>
+  <p class="hero-sub">Django, React, and PostgreSQL, deployed and maintained on real production servers — not just built and forgotten. I handle everything from OAuth integrations and API design to Nginx configs and the 2am deploy fix.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View projects</a>
+    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2>Grounded in the full stack, from server to screen</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm a Full Stack Developer working across Python/Django, FastAPI, and React/Vite, with PostgreSQL and Redis handling data and state underneath. Most of my work has been building and running production web applications for UAE-based businesses — real estate, fintech/AML compliance, tax consultancy, and social media management for agencies.</p>
+        <p>My focus extends beyond feature development into the operational layer: deployment architecture, server configuration, and search visibility. I've resolved multi-worker cache consistency issues, configured HTTPS and Nginx for production traffic, corrected SEO and sitemap errors affecting search indexing, and maintained disciplined Git branching workflows across team repositories. My deployment experience spans AWS and DigitalOcean, using Gunicorn with systemd and PM2 for process management.</p>
+        <p>Based in Palakkad, Kerala — open to full-time roles and freelance/client engagements.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat-row"><span class="stat-label">Location</span><span class="stat-value">Palakkad, Kerala, IN</span></div>
+        <div class="stat-row"><span class="stat-label">Focus</span><span class="stat-value">Django · React · Postgres</span></div>
+        <div class="stat-row"><span class="stat-label">Deploys on</span><span class="stat-value">AWS / DigitalOcean</span></div>
+        <div class="stat-row"><span class="stat-label">Available for</span><span class="stat-value">Full-time · Freelance</span></div>
+        <div class="stat-row"><span class="stat-label">Education</span><span class="stat-value">BE Computer Science</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">Toolkit</div>
+    <h2>What I build with</h2>
+    <div class="skill-cols">
+      <div class="skill-col">
+        <h4>Backend</h4>
+        <ul>
+          <li>Python</li>
+          <li>Django / DRF</li>
+          <li>FastAPI</li>
+          <li>Node.js / Express</li>
+          <li>JWT &amp; OAuth 2.0</li>
+          <li>Celery</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Frontend</h4>
+        <ul>
+          <li>React</li>
+          <li>Vite</li>
+          <li>JavaScript / TypeScript</li>
+          <li>Tailwind / CSS</li>
+          <li>WebSockets</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Data &amp; Infra</h4>
+        <ul>
+          <li>PostgreSQL</li>
+          <li>Redis</li>
+          <li>Docker / Compose</li>
+          <li>Nginx + Gunicorn</li>
+          <li>AWS / DigitalOcean</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Practices</h4>
+        <ul>
+          <li>Git / PR workflows</li>
+          <li>REST API design</li>
+          <li>SEO &amp; sitemaps</li>
+          <li>Systemd services</li>
+          <li>PM2 process mgmt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">Featured Projects</div>
+    <h2>Systems I've built end-to-end</h2>
+    <p class="section-intro">Three production platforms — each one taken from architecture through to a live deployment I still maintain.</p>
+
+    <div class="release">
+      <div class="release-head">
+        <div>
+          <div class="release-title">BrandHub</div>
+          <div class="release-date mono">Built &amp; deployed, June–July 2026</div>
+        </div>
+        <span class="release-tag">v1.0 · social-ops</span>
+      </div>
+      <div class="release-body">
+        <p class="release-desc">A multi-tenant social media management platform built for agencies handling Facebook, Instagram, LinkedIn, and X accounts on behalf of clients. Built the full OAuth popup flow for Facebook/Instagram, JWT auth, Fernet-encrypted token storage, and a publishing orchestrator that posts across platforms via the Meta Graph API — including image upload handling. Solved a tricky Redis-backed shared cache issue so OAuth state worked correctly across multiple Gunicorn workers.</p>
+        <div class="release-stack">
+          <span class="chip">Django</span><span class="chip">React</span><span class="chip">PostgreSQL</span>
+          <span class="chip">Redis</span><span class="chip">Meta Graph API</span><span class="chip">DigitalOcean</span>
+          <span class="chip">Nginx + Gunicorn</span>
+        </div>
+        <div class="release-links"><span class="status-pill"><span class="dot"></span> Live in production</span></div>
+      </div>
+    </div>
+
+    <div class="release">
+      <div class="release-head">
+        <div>
+          <div class="release-title">Xopp-BI</div>
+          <div class="release-date mono">Upgraded, June 2026</div>
+        </div>
+        <span class="release-tag">v2.0 · data-platform</span>
+      </div>
+      <div class="release-body">
+        <p class="release-desc">A production business intelligence platform (live at x-opp.in) handling large-scale CSV data uploads. Replaced a memory-loading import process with row-by-row streaming to handle much larger files reliably, reconfigured Nginx to support multi-gigabyte uploads, and added duplicate-detection logic to keep the dataset clean.</p>
+        <div class="release-stack">
+          <span class="chip">Node.js / Express</span><span class="chip">React</span><span class="chip">Vite</span>
+          <span class="chip">PostgreSQL</span><span class="chip">PM2</span>
+        </div>
+        <div class="release-links">
+          <a href="https://x-opp.in" target="_blank" rel="noopener">Visit x-opp.in ↗</a>
+          <span class="status-pill"><span class="dot"></span> Live in production</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="sites">
+  <div class="wrap">
+    <div class="eyebrow">Client Sites</div>
+    <h2>Company websites I've built &amp; maintained</h2>
+    <p class="section-intro">Ongoing production Django sites for UAE-based clients — covering deployment, SEO, and feature work over time.</p>
+    <div class="site-grid">
+      <div class="site-card">
+        <div class="site-name">KIF Realty <span class="site-industry mono">real estate</span></div>
+        <div class="site-desc">Dubai real estate site — landing page consolidation, ROI/location data, and SEO rewrites.</div>
+        <a class="site-link" href="https://kifrealty.com" target="_blank" rel="noopener">kifrealty.com ↗</a>
+      </div>
+      <div class="site-card">
+        <div class="site-name">YoungAndRight <span class="site-industry mono">accounting / tax</span></div>
+        <div class="site-desc">Accounting and tax consultancy site with ongoing feature and maintenance work.</div>
+        <a class="site-link" href="https://youngandright.ae" target="_blank" rel="noopener">youngandright.ae ↗</a>
+      </div>
+      <div class="site-card">
+        <div class="site-name">GoAML UAE <span class="site-industry mono">AML compliance</span></div>
+        <div class="site-desc">AML compliance site — fixed sitemap/indexing issues, added per-post SEO metadata and Open Graph tags.</div>
+        <a class="site-link" href="https://goamluae.com" target="_blank" rel="noopener">goamluae.com ↗</a>
+      </div>
+      <div class="site-card">
+        <div class="site-name">Aetherly <span class="site-industry mono">fintech / stock market</span></div>
+        <div class="site-desc">Stock market analysis and screening platform with real-time price updates, watchlists, and market news.</div>
+        <a class="site-link" href="https://aetherly.ae" target="_blank" rel="noopener">aetherly.ae ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="freelance">
+  <div class="wrap">
+    <div class="eyebrow">Freelance Work</div>
+    <h2>Independent client projects</h2>
+    <p class="section-intro">Built outside my full-time role, end-to-end for an independent client.</p>
+    <div class="site-grid" style="grid-template-columns:1fr; max-width:460px;">
+      <div class="site-card">
+        <div class="site-name">TwinCode <span class="site-industry mono">digital marketing agency</span></div>
+        <div class="site-desc">Marketing agency website with home, services, blog, and contact pages — built and deployed as freelance work.</div>
+        <a class="site-link" href="https://twincode-5j5y.onrender.com/" target="_blank" rel="noopener">twincode-5j5y.onrender.com ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="eyebrow">Education</div>
+    <h2>Background</h2>
+    <div class="edu-row">
+      <div>
+        <div class="edu-degree">BE, Computer Science</div>
+        <div class="edu-school">Adithya Institute of Technology, Coimbatore</div>
+      </div>
+      <div class="edu-date">2021 — 2025</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--gold)">Get in touch</div>
+    <h2>Let's build something that stays live</h2>
+    <p class="contact-sub">Open to full-time Full Stack Developer roles and freelance/client project work. Reach out below.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email</div>
+        <a class="contact-value" href="mailto:swethamayakrishnan221@gmail.com">swethamayakrishnan221@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Phone</div>
+        <a class="contact-value" href="tel:+919037957738">+91 90379 57738</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">GitHub</div>
+        <a class="contact-value" href="https://github.com/swetha2202" target="_blank" rel="noopener">github.com/swetha2202</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <a class="contact-value" href="https://www.linkedin.com/in/swethamayakrishnan/" target="_blank" rel="noopener">in/swethamayakrishnan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Palakkad, Kerala, India · © 2026 Swetha Mayakrishnan</footer>
+
+</body>
+</html>
